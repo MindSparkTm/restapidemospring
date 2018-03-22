@@ -1,0 +1,94 @@
+This is the instructions of how to use the application 
+
+The application has been built using Java with Spring boot,JPA, Hibernate, Maven and Mysql Database.
+
+The IDE that has been used is IntelliJ IDEA Ultimate Edition.
+
+
+The architecture that has been used to build this REST API is as follows
+
+                               ----Controller  ------
+                                      |
+                                      V
+                              ----- Service Layer --------
+                                      |
+                                      V
+                             ------- Data Access Layer--------
+                                      |
+                                      V
+                            -------  Mysql Database----------------
+
+
+
+Instructions on how to use the application:-
+
+Database layer -
+1. To set up the database script a bankaccount.sql script is added in the project directory.
+2. You can use Xammp to import the script and set up the tables with data.
+3. The account number that has been configured with the application is 1111.
+4. Execute the bankaccount.sql script in Xammp Control Panel and it will set up the sql database.
+
+IntelliJ IDE database configuration:-=
+1. Navigate to the application.properties and edit the following to connect to the Database
+
+spring.datasource.url=jdbc:mysql://localhost:3306/SampleAccount
+spring.datasource.username=root
+spring.datasource.password=
+server.port = 8095
+
+
+If the above steps are done properly then the API is ready to be tested. Examples of testing is as follows:-
+
+Account Number - 1111
+
+Endpoint to be tested - /api/v1/balance?accountnumber=1111
+Response (JSON)
+[
+    {
+        "id": 3,
+        "accountnumber": "1111",
+        "balance": 15500,
+        "timestamp": 1521061200000
+    }
+]
+
+
+Any other account number will return a null response
+
+
+Deposit endpoint - api/v1/deposit?accountnumber=1111&deposit=3000
+
+Response (string)
+success 
+
+1. If a user exceeds the maximum number of deposits/day
+response - You have either exceeded the maximum number of deposits/ the maximum deposit amount
+
+2. if a user exceeds the maximum amount of deposits/day (localhost:8095/api/v1/deposit?accountnumber=1111&deposit=180000)
+
+response - Something went wrong. Contact Bank
+
+
+Withdrawl endpoint - api/v1/withdraw?accountnumber=1111&withdraw=3000
+
+1. if the withdrawl is successful then the user will get a response back 
+response (string )
+- success
+2. if the number of withdrawl attempts exceeds then the user will get a response 
+response (string)
+  - Maximum number of withdrawl attempts has been exceeded
+
+3. if there is insufficient funds or maximum amount of withdrawl has been exceeded then the user
+gets a response (string)
+  - Insufficient funds /the maximum withdrawl amount exceeded";
+
+4.ANy other error - Something went wrong. Contact Bank
+
+
+
+
+
+
+
+
+
